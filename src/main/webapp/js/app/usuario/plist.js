@@ -1,5 +1,10 @@
 'use strict'
 
+//http://localhost:8081/json?ob=usuario&op=login&user=rigo&pass=B221D9DBB083A7F33428D7C2A3C3198AE925614D70210E28716CCAA7CD4DDB79
+//http://localhost:8081/json?ob=usuario&op=check
+//http://localhost:8081/json?ob=usuario&op=logout
+
+
 moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
     function ($scope, $http, $location, toolService, $routeParams) {
 

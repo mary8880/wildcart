@@ -12,7 +12,7 @@ trolleyes.run(['$rootScope', 'sessionService', '$location', '$http',
             }).then(function (response) {
                 if (response.data.status == 200) {
                     oSessionService.setSessionActive;
-                    oSessionService.setUserName = response.data.message.nombre + " " + response.data.message.ape1;
+                    oSessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);
                 } else {
                     oSessionService.setSessionInactive;
                     if (nextUrl != '/' && nextUrl != '/home' && nextUrl != '/login') {
