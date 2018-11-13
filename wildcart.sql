@@ -8,19 +8,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema trolleyes
+-- Schema wildcart
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema trolleyes
+-- Schema wildcart
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `trolleyes` DEFAULT CHARACTER SET utf8 ;
-USE `trolleyes` ;
+CREATE SCHEMA IF NOT EXISTS `wildcart` DEFAULT CHARACTER SET utf8 ;
+USE `wildcart` ;
 
 -- -----------------------------------------------------
--- Table `trolleyes`.`tipoUsuario`
+-- Table `wildcart`.`tipoUsuario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `trolleyes`.`tipoUsuario` (
+CREATE TABLE IF NOT EXISTS `wildcart`.`tipoUsuario` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `desc` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))
@@ -30,9 +30,9 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `trolleyes`.`usuario`
+-- Table `wildcart`.`usuario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `trolleyes`.`usuario` (
+CREATE TABLE IF NOT EXISTS `wildcart`.`usuario` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `dni` VARCHAR(255) NULL,
   `nombre` VARCHAR(255) NULL,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `trolleyes`.`usuario` (
   INDEX `fk_usuario_tipoUsuario_idx` (`id_tipoUsuario` ASC),
   CONSTRAINT `fk_usuario_tipoUsuario`
     FOREIGN KEY (`id_tipoUsuario`)
-    REFERENCES `trolleyes`.`tipoUsuario` (`id`)
+    REFERENCES `wildcart`.`tipoUsuario` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -54,9 +54,9 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `trolleyes`.`tipoProducto`
+-- Table `wildcart`.`tipoProducto`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `trolleyes`.`tipoProducto` (
+CREATE TABLE IF NOT EXISTS `wildcart`.`tipoProducto` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `desc` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))
@@ -66,9 +66,9 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `trolleyes`.`producto`
+-- Table `wildcart`.`producto`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `trolleyes`.`producto` (
+CREATE TABLE IF NOT EXISTS `wildcart`.`producto` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `codigo` VARCHAR(255) NULL,
   `desc` VARCHAR(255) NULL,
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `trolleyes`.`producto` (
   INDEX `fk_producto_tipoProducto1_idx` (`id_tipoProducto` ASC),
   CONSTRAINT `fk_producto_tipoProducto1`
     FOREIGN KEY (`id_tipoProducto`)
-    REFERENCES `trolleyes`.`tipoProducto` (`id`)
+    REFERENCES `wildcart`.`tipoProducto` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -89,9 +89,9 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `trolleyes`.`factura`
+-- Table `wildcart`.`factura`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `trolleyes`.`factura` (
+CREATE TABLE IF NOT EXISTS `wildcart`.`factura` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fecha` DATETIME NULL,
   `iva` FLOAT NULL,
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `trolleyes`.`factura` (
   INDEX `fk_factura_usuario1_idx` (`id_usuario` ASC),
   CONSTRAINT `fk_factura_usuario1`
     FOREIGN KEY (`id_usuario`)
-    REFERENCES `trolleyes`.`usuario` (`id`)
+    REFERENCES `wildcart`.`usuario` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -109,9 +109,9 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `trolleyes`.`linea`
+-- Table `wildcart`.`linea`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `trolleyes`.`linea` (
+CREATE TABLE IF NOT EXISTS `wildcart`.`linea` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `cantidad` INT NULL,
   `id_producto` INT NULL,
@@ -121,12 +121,12 @@ CREATE TABLE IF NOT EXISTS `trolleyes`.`linea` (
   INDEX `fk_linea_factura1_idx` (`id_factura` ASC),
   CONSTRAINT `fk_linea_producto1`
     FOREIGN KEY (`id_producto`)
-    REFERENCES `trolleyes`.`producto` (`id`)
+    REFERENCES `wildcart`.`producto` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE,
   CONSTRAINT `fk_linea_factura1`
     FOREIGN KEY (`id_factura`)
-    REFERENCES `trolleyes`.`factura` (`id`)
+    REFERENCES `wildcart`.`factura` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB
