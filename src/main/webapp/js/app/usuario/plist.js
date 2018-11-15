@@ -54,7 +54,7 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
         //getcount
         $http({
             method: 'GET',
-            url: '/json?ob=usuario&op=getcount'
+            url: 'json?ob=usuario&op=getcount'
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuariosNumber = response.data.message;
@@ -71,7 +71,7 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
 
         $http({
             method: 'GET',
-            url: '/json?ob=usuario&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+            url: 'json?ob=usuario&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message;

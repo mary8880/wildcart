@@ -1,150 +1,45 @@
 'use strict'
-moduloComponent.component('tipousuarioSelectionController', {
-    templateUrl: 'js/app/usuario/selection.html',
+moduleComponent.component('tipousuarioSelectionController', {
+    templateUrl: 'js/app/tipousuario/selection.html',
     controllerAs: 'c',
-    controller: addModalVarController   
+    controller: cController
 });
 
-function addModalVarController($http) {
-        var self = this;
-//        self.newVariableAndValue = {
-//            name: '',
-//            value: ''
-//        };
-//        self.save = function () {
-//            var tempVariableAndValue = {
-//                name: self.newVariableAndValue.name,
-//                value: self.newVariableAndValue.value
-//            }
-//            self.arrayDeVariables.push(tempVariableAndValue);
-//        };
-        
-        
-        
-        
-        
-        
-        
-        
-          self.ob="tipousuario";
-        
-        
-        self.totalPages = 1;
+function cController($http) {
+    console.log("ccontroler....");
+    var self = this;
+    self.ob = "tipousuario";
+    self.page = 1;
+    self.totalPages = 1;
+    self.orderURLServidor = "";
+    self.rpp = 10;
+    $http({
+        method: 'GET',
+        url: 'json?ob=' + self.ob + '&op=getcount'
+    }).then(function (response) {
+        self.status = response.status;
+        self.ajaxDataUsuariosNumber = response.data.message;
+        self.totalPages = Math.ceil(self.ajaxDataUsuariosNumber / self.rpp);
+        if (self.page > self.totalPages) {
+            self.page = self.totalPages;
+        }
+    }, function (response) {
+        self.ajaxDataUsuariosNumber = response.data.message || 'Request failed';
+        self.status = response.status;
+    });
 
-//        if (!$routeParams.order) {
-//            $scope.orderURLServidor = "";
-//            $scope.orderURLCliente = "";
-//        } else {
-//            $scope.orderURLServidor = "&order=" + $routeParams.order;
-//            $scope.orderURLCliente = $routeParams.order;
-//        }
-//
-//        if (!$routeParams.rpp) {
-//            $scope.rpp = 10;
-//        } else {
-//            $scope.rpp = $routeParams.rpp;
-//        }
-//
-//        if (!$routeParams.page) {
-//            $scope.page = 1;
-//        } else {
-//            if ($routeParams.page >= 1) {
-//                $scope.page = $routeParams.page;
-//            } else {
-//                $scope.page = 1;
-//            }
-//        }
-
-//
-//        $scope.resetOrder = function () {
-//            $location.url($scope.ob + `/plist/` + $scope.rpp + `/` + $scope.page);
-//        }
-
-
-//        $scope.ordena = function (order, align) {
-//            if ($scope.orderURLServidor == "") {
-//                $scope.orderURLServidor = "&order=" + order + "," + align;
-//                $scope.orderURLCliente = order + "," + align;
-//            } else {
-//                $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
-//                $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
-//            }
-//            $location.url($scope.ob + `/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
-//        }
-
-        //getcount
-        $http({
-            method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob='+$scope.ob+'&op=getcount'
-        }).then(function (response) {
-            $scope.status = response.status;
-            $scope.ajaxDataUsuariosNumber = response.data.message;
-            $scope.totalPages = Math.ceil($scope.ajaxDataUsuariosNumber / $scope.rpp);
-            if ($scope.page > $scope.totalPages) {
-                $scope.page = $scope.totalPages;
-                $scope.update();
-            }
-            pagination2();
-        }, function (response) {
-            $scope.ajaxDataUsuariosNumber = response.data.message || 'Request failed';
-            $scope.status = response.status;
-        });
-
-        $http({
-            method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob='+$scope.ob+'&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
-        }).then(function (response) {
-            $scope.status = response.status;
-            $scope.ajaxDataUsuarios = response.data.message;
-        }, function (response) {
-            $scope.status = response.status;
-            $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
-        });
-
-
-
-//        $scope.update = function () {
-//            $location.url($scope.ob + `/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
-//        }
+    $http({
+        method: 'GET',
+        url: 'json?ob=' + self.ob + '&op=getpage&rpp=' + self.rpp + '&page=' + self.page + self.orderURLServidor
+    }).then(function (response) {
+        self.status = response.status;
+        self.data = response.data.message;
+    }, function (response) {
+        self.status = response.status;
+        self.data = response.data.message || 'Request failed';
+    });
+}
 
 
 
 
-//        //paginacion neighbourhood
-//        function pagination2() {
-//            $scope.list2 = [];
-//            $scope.neighborhood = 3;
-//            for (var i = 1; i <= $scope.totalPages; i++) {
-//                if (i === $scope.page) {
-//                    $scope.list2.push(i);
-//                } else if (i <= $scope.page && i >= ($scope.page - $scope.neighborhood)) {
-//                    $scope.list2.push(i);
-//                } else if (i >= $scope.page && i <= ($scope.page - -$scope.neighborhood)) {
-//                    $scope.list2.push(i);
-//                } else if (i === ($scope.page - $scope.neighborhood) - 1) {
-//                    $scope.list2.push("...");
-//                } else if (i === ($scope.page - -$scope.neighborhood) + 1) {
-//                    $scope.list2.push("...");
-//                }
-//            }
-//        }
-//
-//
-//
-//
-//        $scope.isActive = toolService.isActive;
-//
-//
-//        
-        
-        
-        
-        
-        
-        
-        
-    }
-    
-
-
-      
