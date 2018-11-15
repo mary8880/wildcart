@@ -1,0 +1,155 @@
+<header ng-include="'js/app/header.html'"></header>
+<div class="container-fluid">
+    <div class="row">      
+        <main role="main" class="col-md-12" style="margin-top: 50px">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Edición de Usuario</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group mr-2">
+                        <button class="btn btn-sm btn-outline-secondary">Share</button>
+                        <button class="btn btn-sm btn-outline-secondary">Export</button>
+                    </div>
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                        <span data-feather="calendar"></span>
+                        This week
+                    </button>
+
+                </div>
+            </div>
+
+            <cadd-modal-var class="modal fade" id="cadd-location-modal" array-de-variables="variables"></cadd-modal-var>
+
+            <form name="outerForm" class="form" ng-show="result == null">
+
+                <div id="id-group" class="form-group">
+                    <label class="col-sm-2 control-label" for="id">Identificador:</label>
+                    <div class="control col-sm-3">
+                        <input ng-model="obj.id" 
+                               type="text" 
+                               id="id" 
+                               class="form-control" 
+                               name="id" 
+                               size="15" 
+                               placeholder="id" 
+                               disabled="disabled">
+                    </div>
+                </div>
+
+                <div id="titulo-group" class="form-group" 
+                     ng-class="{'has-error': (outerForm.nombre.$error.required ||
+                                         outerForm.nombre.$error.minlength ||
+                                         outerForm.titulo.$error.maxlength)
+                                         && !outerForm.nombre.$pristine}">
+                    <label class="col-sm-2 control-label" for="nombre">Nombre:</label>
+                    <div class="control col-sm-8">
+                        <input ng-model="obj.nombre"
+                               type="text"
+                               id="nombre"
+                               class="form-control"
+                               name="nombre"
+                               size="15"
+                               placeholder="nombre del usuario"
+                               minlength="1"
+                               maxlength="255"
+                               required>
+                        <span class="help-block" ng-show="!outerForm.nombre.$pristine && outerForm.nombre.$error.required">El campo nombre es obligatorio</span>
+                        <span class="help-block" ng-show="!outerForm.nombre.$pristine && outerForm.nombre.$error.minlength">El campo nombre debe tener al menos 10 caracteres</span>
+                        <span class="help-block" ng-show="!outerForm.nombre.$pristine && outerForm.nombre.$error.maxlength">El campo nombre debe tener como máximo 255 caracteres</span>
+                    </div>
+                </div>
+
+                <div id="apellidos-group" class="form-group">
+                    <label class="col-sm-2 control-label" for="ape1">Primer Apellido:</label>
+                    <div class="control col-sm-8">
+                        <input ng-model="obj.ape1" 
+                               type="text" 
+                               id="apellidos" 
+                               class="form-control" 
+                               name="ape1" 
+                               size="15" 
+                               placeholder="primer apellido">
+                    </div>
+                </div>
+                <div id="apellidos-group" class="form-group">
+                    <label class="col-sm-2 control-label" for="ape2">Segundo Apellido:</label>
+                    <div class="control col-sm-8">
+                        <input ng-model="obj.ape2" 
+                               type="text" 
+                               id="apellidos" 
+                               class="form-control" 
+                               name="ape2" 
+                               size="15" 
+                               placeholder="segundo apellido">
+                    </div>
+                </div>
+
+                <div id="login-group" class="form-group">
+                    <label class="col-sm-2 control-label" for="login">Login:</label>
+                    <div class="control col-sm-8">
+                        <input ng-model="obj.login" 
+                               type="text" 
+                               id="login" 
+                               class="form-control" 
+                               name="login" 
+                               size="15" 
+                               placeholder="login">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="obj_tipousuario">Tipo de usuario:</label>
+                    <div class="control col-sm-3">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text fas fa-search" 
+                                      ng-click="chooseTipousuario()" 
+                                      data-toggle="modal" 
+                                      data-target="#cadd-location-modal"></span>                                                                                                                                                                                         
+                            </div>
+                            <input ng-model="obj.obj_tipousuario.id"                                    
+                                   aria-describedby="basic-addon2" 
+                                   class="form-control" 
+                                   id="obj_tipousuario" 
+                                   name="obj_tipousuario" 
+                                   type="text" 
+                                   size="5" 
+                                   maxlength="5">
+                            <div class="input-group-append">
+
+                                <a href="#/tipousuario/view/{{obj.obj_tipousuario.id}}"  class="input-group-text">
+                                    <span>Tipo de usuario: {{obj.obj_tipousuario.desc}}</span>     
+                                </a>    
+                            </div>
+                        </div>
+                    </div>            
+                </div>
+
+
+
+
+
+
+                <div class="control-group text-right">
+                    <div class="controls">
+                        <a class="btn btn-primary" ng-click="save()">Guardar</a>
+                        <a class="btn btn-default" ng-click="plist()">Ir al listado de usuarios</a>
+                        <a class="btn btn-default" ng-click="close()">Cerrar</a>
+                    </div>
+                </div>
+            </form>
+            <div ng-show="result != null">    
+                <div class="alert alert-success" ng-show="result.status == 200">
+                    <h2>Se ha modificado el usuario</h2>
+                    <a ng-href="#/usuario/view/{{id}}">Ver el usuario modificado</a>
+                </div>
+                <div class="alert alert-danger" ng-show="result.status != 200">
+                    <h2>                        Error al modificar el usuario: no se ha modificado el usuario</h2>
+                    <h3>                        Código: {{result.status}}</h3>
+                    <h3>                        Mensaje: {{result.message}}</h3>             
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+<footer class="fo    oter" ng-include="'js/app/footer.html'"></footer>

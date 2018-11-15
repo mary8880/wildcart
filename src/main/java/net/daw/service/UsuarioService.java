@@ -38,12 +38,13 @@ public class UsuarioService {
     }
 
     protected Boolean checkPermission(String strMethodName) {
-        UsuarioBean oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
-        if (oUsuarioBean != null) {
-            return true;
-        } else {
-            return false;
-        }
+//        UsuarioBean oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+//        if (oUsuarioBean != null) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+        return true;
     }
 
     public ReplyBean get() throws Exception {
