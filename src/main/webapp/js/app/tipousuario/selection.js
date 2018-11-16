@@ -1,12 +1,15 @@
 'use strict'
-moduleComponent.component('tipousuarioSelectionController', {
+moduleComponent.component('tipousuarioSelection', {
     templateUrl: 'js/app/tipousuario/selection.html',
     controllerAs: 'c',
-    controller: cController
+    controller: cController,
+    bindings: {
+        obj: '='
+    },
 });
 
 function cController($http) {
-    console.log("ccontroler....");
+    //console.log("ccontroler....");
     var self = this;
     self.ob = "tipousuario";
     self.page = 1;
@@ -38,6 +41,17 @@ function cController($http) {
         self.status = response.status;
         self.data = response.data.message || 'Request failed';
     });
+
+    self.save = function (id,desc) {
+        self.obj.id = id;
+        self.obj.desc = desc;
+        
+        
+        
+        
+    };
+
+
 }
 
 

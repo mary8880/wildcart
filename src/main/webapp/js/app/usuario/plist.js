@@ -7,9 +7,9 @@
 
 moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
     function ($scope, $http, $location, toolService, $routeParams) {
-
+        $scope.ob = "usuario";
         $scope.totalPages = 1;
-        $scope.error="";
+        $scope.error = "";
 
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
@@ -66,7 +66,7 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
             }
             pagination2();
         }, function (response) {
-            $scope.error += " getcount: " + response.message & response.stack || 'Request failed';            
+            $scope.error += " getcount: " + response.message & response.stack || 'Request failed';
         });
 
         $http({
@@ -76,7 +76,7 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message;
         }, function (response) {
-            $scope.error += " getpage: " + response.message & response.stack || 'Request failed';   
+            $scope.error += " getpage: " + response.message & response.stack || 'Request failed';
         });
 
 
@@ -108,7 +108,7 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
         }
 
         $scope.openModal = function () {
-           
+
         }
 
 

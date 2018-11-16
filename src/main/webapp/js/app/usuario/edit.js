@@ -25,24 +25,24 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
 
 
 
-        $scope.usuario = function () {
-            $http({
-                method: 'GET',
-                //withCredentials: true,
-                url: '/json?ob=usuario&op=get&id=' + $scope.id
-            }).then(function (response) {
-                $scope.status = response.status;
-                $scope.data = response.data.message;
-            }, function (response) {
-                $scope.data = response.data.message || 'Request failed';
-                $scope.status = response.status;
-            });
-        }
+
+        $http({
+            method: 'GET',
+            //withCredentials: true,
+            url: 'json?ob=usuario&op=get&id=' + $scope.id
+        }).then(function (response) {
+            $scope.status = response.status;
+            $scope.data = response.data.message;
+        }, function (response) {
+            $scope.data = response.data.message || 'Request failed';
+            $scope.status = response.status;
+        });
+
 
         $scope.save = function () {
             $http({
                 method: 'GET',
-                url: '/json?ob=tipousuario&op=update&id=2',
+                url: 'json?ob=tipousuario&op=update&id=2',
                 data: {json: JSON.stringify($scope.obj)}
             }).then(function (response) {
                 $scope.status = response.status;
@@ -54,10 +54,30 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
 
         };
 
- $scope.chooseTipousuario = function () {
-     
-     
- }
+
+        $scope.tipoUsuarioRefresh = function () {
+            $http({
+                method: 'GET',
+                //withCredentials: true,
+                url: 'json?ob=tipousuario&op=get&id=' + $scope.data.obj_tipoUsuario.id
+            }).then(function (response) {
+                //$scope.status = response.status;
+                $scope.data.obj_tipoUsuario = response.data.message;
+            }, function (response) {
+                $scope.data = response.data.message || 'Request failed';
+                $scope.status = response.status;
+                
+                //$scope.outerForm.obj_tipousuario.$setValidity('exists', false);
+                
+            });
+            
+            
+
+
+        }
+
+
+
 
         $scope.back = function () {
             window.history.back();

@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-12" ng-show="error">
                     <div class="alert alert-danger" role="alert">
-                    ERROR: {{error}}
+                        ERROR: {{error}}
                     </div>
                 </div>
                 <div class="col-12" ng-show="!error">
@@ -129,7 +129,22 @@
                         <td>{{fila.ape2}}</td>
                         <td>{{fila.login}}</td>
                         <td>{{fila.id_tipoUsuario}}</td>
-                        <td>BOTONERA DE ACCIONES</td>
+                        <td>
+                            
+                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar">
+                                <div class="btn-group" role="group">
+                                    <a href="{{ob}}/view/{{fila.id}}" class="btn btn-secondary" title="View">Ver
+                                      
+                                    </a>
+                                    <a href="{{ob}}/edit/{{fila.id}}" class="btn btn-secondary" title="Edit">Editar
+                                      
+                                    </a>
+                                    <a href="{{ob}}/remove/{{fila.id}}" class="btn btn-secondary" title="Remove">Borrar
+                                      
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </table>
 
