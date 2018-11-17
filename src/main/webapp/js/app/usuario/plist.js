@@ -92,7 +92,7 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
         //paginacion neighbourhood
         function pagination2() {
             $scope.list2 = [];
-            $scope.neighborhood = 3;
+            $scope.neighborhood = 2;
             for (var i = 1; i <= $scope.totalPages; i++) {
                 if (i === $scope.page) {
                     $scope.list2.push(i);
