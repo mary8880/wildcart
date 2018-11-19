@@ -2,20 +2,19 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12" style="margin-top: 60px">
-            <h1 class="h2">Usuarios</h1>
-            <hr>
-            <div class="row">
-                <div class="col-12">
-                                        
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">                                                                  
-                    <button type="button" class="btn btn-light" ng-click="resetOrder()">
-                        Quitar orden
-                    </button>
 
-                    <div class="btn-group" style="width:400px;">
-                       
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Usuarios</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                     <button type="button" class="btn btn-light" ng-click="resetOrder()">
+                            Quitar orden
+                        </button>
+                </div>
+                <div class="btn-toolbar mb-2 mb-md-0">
+
+                    <div class="btn-group" style="width:40px;">
+
                         <select class="form-control" 
-                                style="width:80px;"
                                 ng-change="update()" 
                                 ng-model="rpp">
                             <option value="5">5</option>
@@ -25,6 +24,11 @@
                         </select>
                     </div>
 
+                </div>
+
+
+
+                <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <nav aria-label="paginacion">
                             <ul class="pagination">
@@ -46,6 +50,25 @@
                             </ul>
                         </nav>
                     </div>
+
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-12" ng-show="error">
+                    <div class="alert alert-danger" role="alert">
+                        ERROR: {{error}}
+                    </div>
+                </div>
+                <div class="col-12" ng-show="!error">
+                    <div class="input-group">
+                       
+
+
+
                     </div>
 
                 </div>
@@ -130,7 +153,22 @@
                         <td>{{fila.ape2}}</td>
                         <td>{{fila.login}}</td>
                         <td>{{fila.id_tipoUsuario}}</td>
-                        <td>BOTONERA DE ACCIONES</td>
+                        <td>
+
+                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar">
+                                <div class="btn-group" role="group">
+                                    <a href="{{ob}}/view/{{fila.id}}" class="btn btn-secondary" title="View">Ver
+
+                                    </a>
+                                    <a href="{{ob}}/edit/{{fila.id}}" class="btn btn-secondary" title="Edit">Editar
+
+                                    </a>
+                                    <a href="{{ob}}/remove/{{fila.id}}" class="btn btn-secondary" title="Remove">Borrar
+
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </table>
 
@@ -138,9 +176,4 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-<footer class="footer" ng-include="'js/app/footer.html'"></footer>
+<div ng-include="'js/app/footer.html'"></div>

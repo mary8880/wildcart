@@ -1,7 +1,7 @@
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Añadir una variable y su valor a la tabla</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Seleccionar un tipo de usuario</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -16,8 +16,8 @@
                     </button>
                     <div class="btn-group" style="width:400px;">
                         <p class="mt-2" style="width:200px;">Selecciona RPP: </p>
-                        <select class="form-control" 
-                                ng-change="c.update()" 
+                        <select class="form-control"
+                                ng-change="c.update()"
                                 ng-model="c.rpp">
                             <option value="5">5</option>
                             <option value="10">10</option>
@@ -99,7 +99,7 @@
                         <td>
                             <div class="btn-toolbar" role="toolbar">
                                 <div class="btn-group">
-                                    <a class="btn btn-default btn-xs" ng-click="chooseOne(fila.id)">            
+                                    <a class="btn btn-default btn-xs" ng-click="c.save(fila.id,fila.desc)" data-dismiss="modal">
                                         <i class="fa fa-reply" aria-hidden="true"></i>
                                     </a>
                                 </div>
