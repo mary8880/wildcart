@@ -55,7 +55,8 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
         };
 
 
-        $scope.tipoUsuarioRefresh = function () {
+        $scope.tipoUsuarioRefresh = function (f) {
+            var form = f;
             $http({
                 method: 'GET',
                 //withCredentials: true,
@@ -63,15 +64,16 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
             }).then(function (response) {
                 //$scope.status = response.status;
                 $scope.data.obj_tipoUsuario = response.data.message;
+                form.outerForm.obj_tipousuario.$setValidity('valid', true);
             }, function (response) {
-                $scope.data = response.data.message || 'Request failed';
-                $scope.status = response.status;
-                
+//                $scope.data = response.data.message || 'Request failed';
+                //$scope.status = response.status;
+                form.outerForm.obj_tipousuario.$setValidity('valid', false);
                 //$scope.outerForm.obj_tipousuario.$setValidity('exists', false);
-                
+
             });
-            
-            
+
+
 
 
         }
