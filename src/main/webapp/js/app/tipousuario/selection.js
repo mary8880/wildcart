@@ -4,7 +4,8 @@ moduleComponent.component('tipousuarioSelection', {
     controllerAs: 'c',
     controller: cController,
     bindings: {
-        obj: '='
+        obj: '=',
+        onTipousuarioSet: '&'
     },
 });
 
@@ -44,11 +45,8 @@ function cController($http) {
 
     self.save = function (id,desc) {
         self.obj.id = id;
-        self.obj.desc = desc;
-        
-        
-        
-        
+        self.obj.desc = desc;        
+        self.onTipousuarioSet();                
     };
 
 

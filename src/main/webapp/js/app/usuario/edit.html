@@ -1,23 +1,24 @@
 <header ng-include="'js/app/header.html'"></header>
+<!-- ---------------------------------------------------------->
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12" style="margin-top: 50px">
+            <!-- ---------------------------------------------------------->
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Edición de Usuario</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
-
                     <button class="btn btn-sm btn-success mr-2 ">Guardar</button>
                     <button class="btn btn-sm mr-2 btn-primary">Usuarios</button>
                     <button class="btn btn-sm btn-outline-secondary">Cerrar</button>
                     <div class="p-2 bd-highlight"><i class="fas fa-user fa-2x"></i></div>    
                 </div>
             </div>
-
+            <!-- ---------------------------------------------------------->
             <ng-form name="outerForm" class="form" ng-show="result == null">
-
+                <!-- ---------------------------------------------------------->
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label"  for="id">Identificador:</label>
-                    <div class="control col-sm-3">
+                    <div class="control col-sm-1">
                         <input ng-model="data.id"
                                type="text"
                                id="id"
@@ -28,13 +29,14 @@
                                disabled="disabled">
                     </div>
                 </div>
+                <!-- ---------------------------------------------------------->
                 <div class="form-group row"
                      ng-class="{'has-error': (outerForm.nombre.$error.required ||
                                          outerForm.nombre.$error.minlength ||
                                          outerForm.titulo.$error.maxlength)
                                          && !outerForm.nombre.$pristine}">
                     <label class="col-sm-2 col-form-label" for="nombre">Nombre:</label>
-                    <div class="control col-sm-8">
+                    <div class="control col-sm-5">
                         <input ng-model="data.nombre"
                                type="text"
                                id="nombre"
@@ -50,10 +52,10 @@
                         <span class="help-block" ng-show="!outerForm.nombre.$pristine && outerForm.nombre.$error.maxlength">El campo nombre debe tener como máximo 255 caracteres</span>
                     </div>
                 </div>
-
+                <!-- ---------------------------------------------------------->
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="ape1">Primer Apellido:</label>
-                    <div class="control col-sm-8">
+                    <div class="control col-sm-5">
                         <input ng-model="data.ape1"
                                type="text"
                                id="apellidos"
@@ -63,9 +65,10 @@
                                placeholder="primer apellido">
                     </div>
                 </div>
+                <!-- ---------------------------------------------------------->
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="ape2">Segundo Apellido:</label>
-                    <div class="control col-sm-8">
+                    <div class="control col-sm-5">
                         <input ng-model="data.ape2"
                                type="text"
                                id="apellidos"
@@ -75,10 +78,10 @@
                                placeholder="segundo apellido">
                     </div>
                 </div>
-
+                <!-- ---------------------------------------------------------->
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="login">Login:</label>
-                    <div class="control col-sm-3">
+                    <div class="control col-sm-2">
                         <input ng-model="data.login"
                                type="text"
                                id="login"
@@ -88,53 +91,63 @@
                                placeholder="login">
                     </div>
                 </div>
-
-                <tipousuario-selection class="modal fade" id="cadd-location-modal" obj="data.obj_tipoUsuario"></tipousuario-selection>
-
+                <!-- ---------------------------------------------------------->
                 <div class="form-group row">
+                    <tipousuario-selection 
+                        class="modal fade" 
+                        id="cadd-location-modal" 
+                        obj="data.obj_tipoUsuario"
+                        on-tipousuario-set="tipoUsuarioRefresh(this)">                          
+                    </tipousuario-selection>
                     <label class="col-sm-2 col-form-label" for="obj_tipousuario">Tipo de usuario:</label>
-                    <div class="control col-sm-3">
+                    <div class="control col-sm-6">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text fas fa-search"
+                                <span class="input-group-text"
                                       data-toggle="modal"
-                                      data-target="#cadd-location-modal"></span>
+                                      data-target="#cadd-location-modal">
+                                    <span class="fas fa-search"></span>
+                                </span>
                             </div>
                             <input ng-model="data.obj_tipoUsuario.id"
                                    ng-change="tipoUsuarioRefresh(this)"
                                    aria-describedby="basic-addon2"
-                                   class="form-control"
+                                   class="form-control col-sm-1"
                                    id="obj_tipousuario"
                                    name="obj_tipousuario"
                                    type="text"
-                                   size="5"
                                    ng-required
                                    ng-model-options="{debounce: 1000}"
-                                   maxlength="5">
+                                   maxlength="2" />
                             <div class="input-group-append">
-                                <a href="#/tipousuario/view/{{data.obj_tipoUsuario.id}}"  class="input-group-text">
-                                    <span>Tipo de usuario: {{data.obj_tipoUsuario.desc}}</span>
-                                </a>
+                                <span class="input-group-text">
+                                    <a href="#/tipousuario/view/{{data.obj_tipoUsuario.id}}">
+                                        <span class="p-2 bd-highlight"><i class="fas fa-users fa-1x"></i></span>
+                                        Tipo de usuario: {{data.obj_tipoUsuario.desc}}
+                                    </a>
+                                </span>
                             </div>
                         </div>
                         <div ng-show="!outerForm.obj_tipousuario.$valid">Tipo de usuario no válido</div>
-
                     </div>
                 </div>
-
+                <!-- ---------------------------------------------------------->
             </ng-form>
+            <!-- ---------------------------------------------------------->
             <div ng-show="result != null">
                 <div class="alert alert-success" ng-show="result.status == 200">
                     <h2>Se ha modificado el usuario</h2>
                     <a ng-href="#/usuario/view/{{id}}">Ver el usuario modificado</a>
                 </div>
-                <div class="alert al                    ert-danger" ng-show="result.status != 200">
-                    <h2>Error al modifica                r el usuari                o: no se ha modificado el usuario</h2>
+                <div class="alert alert-danger" ng-show="result.status != 200">
+                    <h2>Error al modificar el usuario: no se ha modificado el usuario</h2>
                     <h3>Código: {{result.status}}</h3>
                     <h3>Mensaje: {{result.message}}</h3>
                 </div>
             </div>
+            <!-- ---------------------------------------------------------->
         </div>
     </div>
 </div>
+<!-- ---------------------------------------------------------->
 <div ng-include="'js/app/footer.html'"></div>

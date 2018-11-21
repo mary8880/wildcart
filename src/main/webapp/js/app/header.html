@@ -7,13 +7,16 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item" ng-class="{'active': isActive('/')}">
-                <a class="nav-link" href="home">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="home">
+                    <span class="p-2 bd-highlight"><i class="fas fa-home fa-1x"></i></span>Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item" ng-class="{'active': isActive('/usuario/plist')}">
-                <a class="nav-link" href="usuario/plist">Usuarios</a>
+                <a class="nav-link" href="usuario/plist">
+                    <span class="p-2 bd-highlight"><i class="fas fa-user fa-1x"></i></span>Usuarios</a>
             </li>
             <li class="nav-item" ng-class="{'active': isActive('/tipousuario/plist')}">
-                <a class="nav-link" href="tipousuario/plist">Tipos de usuario</a>
+                <a class="nav-link" href="tipousuario/plist">
+                     <span class="p-2 bd-highlight"><i class="fas fa-users fa-1x"></i></span>Tipos de usuario</a>
             </li>
             <li class="nav-item" ng-class="{'active': isActive('/producto/plist') || isActive('/producto/view/')}">
                 <a class="nav-link" href="producto/plist">Productos</a>
