@@ -98,7 +98,7 @@
                         class="modal fade" 
                         id="cadd-location-modal" 
                         obj="data.obj_tipoUsuario"
-                        on-tipousuario-set="tipoUsuarioRefresh(this)">                          
+                        on-tipousuario-set="tipoUsuarioRefresh(this,false)">                          
                     </tipousuario-selection>
                     <label class="col-sm-2 col-form-label" for="obj_tipousuario">Tipo de usuario:</label>
                     <div class="control col-sm-6">
@@ -111,7 +111,7 @@
                                 </span>
                             </div>
                             <input ng-model="data.obj_tipoUsuario.id"
-                                   ng-change="tipoUsuarioRefresh(this)"
+                                   ng-change="tipoUsuarioRefresh(this,true)"
                                    aria-describedby="basic-addon2"
                                    class="form-control col-sm-1"
                                    id="obj_tipousuario"
