@@ -4,42 +4,44 @@
         <div class="col-md-12" style="margin-top: 60px">
 
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Usuarios</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                     <nav aria-label="paginacion">
-                            <ul class="pagination">
-                                <li class="page-item active">
-                                    <a class="page-link" ng-click="resetOrder()">  Quitar orden</a>
-                                </li>
-                            </ul>
-                     </nav>
-                    
-                    
-                  
-                </div>
-                <div class="btn-toolbar mb-2 mb-md-0">
+                <div>                    
+                    <h1 class="h2"><span class="p-2 bd-highlight"><i class="fas fa-user fa-1x"></i></span>Usuarios</h1>
+                </div>                            
+                    <nav aria-label="orden">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" ng-click="resetOrder()">  Quitar orden</a>                                
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" ng-click="resetOrder()">  Cerrar</a>                                
+                            </li>                                                        
+                        </ul>
+                    </nav>
+                
 
-                    <div class="btn-group" style="width:40px;">
 
-                        <div>
+         
+               
+
+                         <nav aria-label="rpp">
+                        
                             <ul class="pagination">
                                 <li class="page-item active" ng-show="rpp == 10"><a class="page-link" id="10" href="{{ob + '/' + op + '/10/' + page + orderURLCliente}}">10</a></li>
-                                <li class="page-item" ng-show="rpp != 10"><a class="page-link" id="10" href="{{ob + '/' + op + '/10/' + page + orderURLCliente}}">10</a></li>            
+                                <li class="page-item" ng-show="rpp != 10"><a class="page-link" id="10" href="{{ob + '/' + op + '/10/' + page + orderURLCliente}}">10</a></li>
                                 <li class="page-item active" ng-show="rpp == 50"><a class="page-link" id="10" href="{{ob + '/' + op + '/50/' + page + orderURLCliente}}">50</a></li>
                                 <li class="page-item" ng-show="rpp != 50"><a class="page-link" id="10" href="{{ob + '/' + op + '/50/' + page + orderURLCliente}}">50</a></li>
                                 <li class="page-item active" ng-show="rpp == 100"><a class="page-link" id="10" href="{{ob + '/' + op + '/100/' + page + orderURLCliente}}">100</a></li>
                                 <li class="page-item" ng-show="rpp != 100"><a class="page-link" id="10" href="{{ob + '/' + op + '/100/' + page + orderURLCliente}}">100</a></li>
                             </ul>
-                        </div>
-                    </div>
+                        
+                    </nav>
 
 
-                </div>
+              
 
 
 
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-toolbar mb-2 mb-md-0">
+         
                         <nav aria-label="paginacion">
                             <ul class="pagination">
                                 <li class="page-item">
@@ -61,8 +63,7 @@
                         </nav>
                     </div>
 
-                </div>
-            </div>
+           
 
 
 
@@ -152,7 +153,7 @@
                             </button>
                         </th>
                         <th>
-                            Acciones                           
+                            Acciones
                         </th>
                     </tr>
                     <tr ng-repeat="fila in ajaxDataUsuarios">
