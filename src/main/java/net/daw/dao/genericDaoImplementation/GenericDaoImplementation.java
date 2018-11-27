@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.daw.dao;
+package net.daw.dao.genericDaoImplementation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,28 +11,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import net.daw.bean.UsuarioBean;
+import net.daw.bean.publicBeanInterface.BeanInterface;
+import net.daw.dao.publicDaoInterface.DaoInterface;
+import net.daw.factory.BeanFactory;
 import net.daw.helper.SqlBuilder;
 
 /**
  *
- * @author Ramón
+ * @author raznara
  */
-public class UsuarioDao {
+public class GenericDaoImplementation implements DaoInterface {
 
-    Connection oConnection;
-    String ob = null;
+    protected Connection oConnection;
+    protected String ob = null;
 
-    public UsuarioDao(Connection oConnection, String ob) {
+    public GenericDaoImplementation(Connection oConnection, String ob) {
         super();
         this.oConnection = oConnection;
         this.ob = ob;
     }
 
-    public UsuarioBean get(int id, Integer expand) throws Exception {
+    @Override
+    public BeanInterface get(int id, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob + " WHERE id=?";
-        UsuarioBean oUsuarioBean;
+        BeanInterface oBean;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
@@ -40,10 +42,10 @@ public class UsuarioDao {
             oPreparedStatement.setInt(1, id);
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
-                oUsuarioBean = new UsuarioBean();
-                oUsuarioBean.fill(oResultSet, oConnection, expand);
+                oBean = BeanFactory.getBean(ob);
+                oBean.fill(oResultSet, oConnection, expand);
             } else {
-                oUsuarioBean = null;
+                oBean = null;
             }
         } catch (SQLException e) {
             throw new Exception("Error en Dao get de " + ob, e);
@@ -55,9 +57,10 @@ public class UsuarioDao {
                 oPreparedStatement.close();
             }
         }
-        return oUsuarioBean;
+        return oBean;
     }
 
+    @Override
     public int remove(int id) throws Exception {
         int iRes = 0;
         String strSQL = "DELETE FROM " + ob + " WHERE id=?";
@@ -76,6 +79,7 @@ public class UsuarioDao {
         return iRes;
     }
 
+    @Override
     public int getcount() throws Exception {
         String strSQL = "SELECT COUNT(id) FROM " + ob;
         int res = 0;
@@ -100,11 +104,12 @@ public class UsuarioDao {
         return res;
     }
 
-    public UsuarioBean create(UsuarioBean oUsuarioBean) throws Exception {
+    @Override
+    public BeanInterface create(BeanInterface oBean) throws Exception {
         String strSQL = "INSERT INTO " + ob;
-        strSQL += "(" + oUsuarioBean.getColumns() + ")";
+        strSQL += "(" + oBean.getColumns() + ")";
         strSQL += " VALUES ";
-        strSQL += "(" + oUsuarioBean.getValues() + ")";
+        strSQL += "(" + oBean.getValues() + ")";
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
@@ -112,11 +117,9 @@ public class UsuarioDao {
             oPreparedStatement.executeUpdate();
             oResultSet = oPreparedStatement.getGeneratedKeys();
             if (oResultSet.next()) {
-                oUsuarioBean.setId(oResultSet.getInt(1));
-                oUsuarioBean.setPass(null);
+                oBean.setId(oResultSet.getInt(1));
             } else {
-                oUsuarioBean.setId(0);
-                oUsuarioBean.setPass(null);
+                oBean.setId(0);
             }
         } catch (SQLException e) {
             throw new Exception("Error en Dao create de " + ob, e);
@@ -128,13 +131,14 @@ public class UsuarioDao {
                 oPreparedStatement.close();
             }
         }
-        return oUsuarioBean;
+        return oBean;
     }
 
-    public int update(UsuarioBean oUsuarioBean) throws Exception {
+    @Override
+    public int update(BeanInterface oBean) throws Exception {
         int iResult = 0;
         String strSQL = "UPDATE " + ob + " SET ";
-        strSQL += oUsuarioBean.getPairs();
+        strSQL += oBean.getPairs();
         PreparedStatement oPreparedStatement = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
@@ -150,10 +154,11 @@ public class UsuarioDao {
         return iResult;
     }
 
-    public ArrayList<UsuarioBean> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder, Integer expand) throws Exception {
+    @Override
+    public ArrayList<BeanInterface> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob;
         strSQL += SqlBuilder.buildSqlOrder(hmOrder);
-        ArrayList<UsuarioBean> alUsuarioBean;
+        ArrayList<BeanInterface> alBean;
         if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
             strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;
             ResultSet oResultSet = null;
@@ -161,11 +166,11 @@ public class UsuarioDao {
             try {
                 oPreparedStatement = oConnection.prepareStatement(strSQL);
                 oResultSet = oPreparedStatement.executeQuery();
-                alUsuarioBean = new ArrayList<UsuarioBean>();
+                alBean = new ArrayList<BeanInterface>();
                 while (oResultSet.next()) {
-                    UsuarioBean oUsuarioBean = new UsuarioBean();
-                    oUsuarioBean.fill(oResultSet, oConnection, expand);
-                    alUsuarioBean.add(oUsuarioBean);
+                    BeanInterface oBean = BeanFactory.getBean(ob);
+                    oBean.fill(oResultSet, oConnection, expand);
+                    alBean.add(oBean);
                 }
             } catch (SQLException e) {
                 throw new Exception("Error en Dao getpage de " + ob, e);
@@ -180,37 +185,8 @@ public class UsuarioDao {
         } else {
             throw new Exception("Error en Dao getpage de " + ob);
         }
-        return alUsuarioBean;
+        return alBean;
 
-    }
-
-    public UsuarioBean login(String strUserName, String strPassword) throws Exception {
-        String strSQL = "SELECT * FROM " + ob + " WHERE login=? AND pass=?";
-        UsuarioBean oUsuarioBean;
-        ResultSet oResultSet = null;
-        PreparedStatement oPreparedStatement = null;
-        try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oPreparedStatement.setString(1, strUserName);
-            oPreparedStatement.setString(2, strPassword);
-            oResultSet = oPreparedStatement.executeQuery();
-            if (oResultSet.next()) {
-                oUsuarioBean = new UsuarioBean();
-                oUsuarioBean.fill(oResultSet, oConnection, 1);
-            } else {
-                oUsuarioBean = null;
-            }
-        } catch (SQLException e) {
-            throw new Exception("Error en Dao get de " + ob, e);
-        } finally {
-            if (oResultSet != null) {
-                oResultSet.close();
-            }
-            if (oPreparedStatement != null) {
-                oPreparedStatement.close();
-            }
-        }
-        return oUsuarioBean;
     }
 
 }

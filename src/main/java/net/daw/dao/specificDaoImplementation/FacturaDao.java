@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.daw.dao;
+package net.daw.dao.specificDaoImplementation;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -11,8 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import net.daw.bean.FacturaBean;
-import net.daw.bean.TipousuarioBean;
+import net.daw.bean.beanImplementation.FacturaBean;
+import net.daw.bean.beanImplementation.TipousuarioBean;
 
 /**
  *

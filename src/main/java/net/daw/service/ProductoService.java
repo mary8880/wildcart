@@ -4,11 +4,11 @@ import com.google.gson.Gson;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
-import net.daw.bean.ReplyBean;
-import net.daw.bean.ProductoBean;
+import net.daw.bean.beanImplementation.ReplyBean;
+import net.daw.bean.beanImplementation.ProductoBean;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
-import net.daw.dao.ProductoDao;
+import net.daw.dao.specificDaoImplementation.ProductoDao;
 import net.daw.factory.ConnectionFactory;
 import net.daw.helper.EncodingHelper;
 

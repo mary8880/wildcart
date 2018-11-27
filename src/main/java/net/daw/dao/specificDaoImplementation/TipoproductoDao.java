@@ -1,27 +1,25 @@
-package net.daw.dao;
+package net.daw.dao.specificDaoImplementation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import net.daw.bean.beanImplementation.TipoproductoBean;
 
-import net.daw.bean.TipousuarioBean;
-
-public class TipousuarioDao {
-
-	Connection oConnection;
+public class TipoproductoDao {
+    Connection oConnection;
 	String ob = null;
 
-	public TipousuarioDao(Connection oConnection, String ob) {
+	public TipoproductoDao(Connection oConnection, String ob) {
 		super();
 		this.oConnection = oConnection;
 		this.ob = ob;
 	}
 
-	public TipousuarioBean get(int id, Integer expand) throws Exception {
+	public TipoproductoBean get(int id) throws Exception {
 		String strSQL = "SELECT * FROM " + ob + " WHERE id=?";
-		TipousuarioBean oTipousuarioBean;
+		TipoproductoBean oTipoproductoBean;
 		ResultSet oResultSet = null;
 		PreparedStatement oPreparedStatement = null;
 		try {
@@ -29,16 +27,11 @@ public class TipousuarioDao {
 			oPreparedStatement.setInt(1, id);
 			oResultSet = oPreparedStatement.executeQuery();
 			if (oResultSet.next()) {
-				oTipousuarioBean = new TipousuarioBean();
-				
-				
-				
-				oTipousuarioBean.fill(oResultSet, oConnection, expand);
-				
-				
-				
+				oTipoproductoBean = new TipoproductoBean();
+				oTipoproductoBean.setId(oResultSet.getInt("id"));
+				oTipoproductoBean.setDesc(oResultSet.getString("desc"));
 			} else {
-				oTipousuarioBean = null;
+				oTipoproductoBean = null;
 			}
 		} catch (SQLException e) {
 			throw new Exception("Error en Dao get de " + ob, e);
@@ -50,7 +43,7 @@ public class TipousuarioDao {
 				oPreparedStatement.close();
 			}
 		}
-		return oTipousuarioBean;
+		return oTipoproductoBean;
 	}
 
 	public int remove(int id) throws Exception {
@@ -95,19 +88,19 @@ public class TipousuarioDao {
 		return res;
 	}
 
-	public TipousuarioBean create(TipousuarioBean oTipousuarioBean) throws Exception {
+	public TipoproductoBean create(TipoproductoBean oTipoproductoBean) throws Exception {
 		String strSQL = "INSERT INTO " + ob + " (`id`, `desc`) VALUES (NULL, ?); ";
 		ResultSet oResultSet = null;
 		PreparedStatement oPreparedStatement = null;
 		try {
 			oPreparedStatement = oConnection.prepareStatement(strSQL);
-			oPreparedStatement.setString(1, oTipousuarioBean.getDesc());
+			oPreparedStatement.setString(1, oTipoproductoBean.getDesc());
 			oPreparedStatement.executeUpdate();
 			oResultSet = oPreparedStatement.getGeneratedKeys();
 			if (oResultSet.next()) {
-				oTipousuarioBean.setId(oResultSet.getInt(1));
+				oTipoproductoBean.setId(oResultSet.getInt(1));
 			} else {
-				oTipousuarioBean.setId(0);
+				oTipoproductoBean.setId(0);
 			}
 		} catch (SQLException e) {
 			throw new Exception("Error en Dao create de " + ob, e);
@@ -119,22 +112,22 @@ public class TipousuarioDao {
 				oPreparedStatement.close();
 			}
 		}
-		return oTipousuarioBean;
+		return oTipoproductoBean;
 	}
 
-	public int update(TipousuarioBean oTipousuarioBean) throws Exception {
+	public int update(TipoproductoBean oTipoproductoBean) throws Exception {
 		int iResult = 0;
-		String strSQL = "UPDATE " + ob + " SET " + ob + ".desc=? WHERE " + ob + ".id=?;";
+		String strSQL = "UPDATE " + ob + " SET " + ob +".desc = ? WHERE id = ?;";
 
 		PreparedStatement oPreparedStatement = null;
 		try {
 			oPreparedStatement = oConnection.prepareStatement(strSQL);
-			oPreparedStatement.setString(1, oTipousuarioBean.getDesc());
-			oPreparedStatement.setInt(2, oTipousuarioBean.getId());
+			oPreparedStatement.setString(1, oTipoproductoBean.getDesc());
+			oPreparedStatement.setInt(2, oTipoproductoBean.getId());
 			iResult = oPreparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new Exception("Error en Dao update de " + ob , e);
+			throw new Exception("Error en Dao update de " + ob, e);
 		} finally {
 			if (oPreparedStatement != null) {
 				oPreparedStatement.close();
@@ -143,9 +136,9 @@ public class TipousuarioDao {
 		return iResult;
 	}
 
-	public ArrayList<TipousuarioBean> getpage(int iRpp, int iPage, Integer expand) throws Exception {
+	public ArrayList<TipoproductoBean> getpage(int iRpp, int iPage) throws Exception {
 		String strSQL = "SELECT * FROM " + ob;
-		ArrayList<TipousuarioBean> alTipousuarioBean;
+		ArrayList<TipoproductoBean> alTipoproductoBean;
 		if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
 			strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;
 			ResultSet oResultSet = null;
@@ -153,14 +146,12 @@ public class TipousuarioDao {
 			try {
 				oPreparedStatement = oConnection.prepareStatement(strSQL);
 				oResultSet = oPreparedStatement.executeQuery();
-				alTipousuarioBean = new ArrayList<TipousuarioBean>();
+				alTipoproductoBean = new ArrayList<TipoproductoBean>();
 				while (oResultSet.next()) {
-					TipousuarioBean oTipousuarioBean = new TipousuarioBean();
-			
-					oTipousuarioBean.fill(oResultSet, oConnection, expand);
-					
-					
-					alTipousuarioBean.add(oTipousuarioBean);
+					TipoproductoBean oTipoproductoBean = new TipoproductoBean();
+					oTipoproductoBean.setId(oResultSet.getInt("id"));
+					oTipoproductoBean.setDesc(oResultSet.getString("desc"));
+					alTipoproductoBean.add(oTipoproductoBean);
 				}
 			} catch (SQLException e) {
 				throw new Exception("Error en Dao getpage de " + ob, e);
@@ -175,8 +166,7 @@ public class TipousuarioDao {
 		} else {
 			throw new Exception("Error en Dao getpage de " + ob);
 		}
-		return alTipousuarioBean;
+		return alTipoproductoBean;
 
 	}
-
 }

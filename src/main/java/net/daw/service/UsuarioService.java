@@ -13,11 +13,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
-import net.daw.bean.ReplyBean;
-import net.daw.bean.UsuarioBean;
+import net.daw.bean.beanImplementation.ReplyBean;
+import net.daw.bean.beanImplementation.UsuarioBean;
+import net.daw.bean.publicBeanInterface.BeanInterface;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
-import net.daw.dao.UsuarioDao;
+import net.daw.dao.genericDaoImplementation.GenericDaoImplementation;
+import net.daw.dao.publicDaoInterface.DaoInterface;
+import net.daw.dao.specificDaoImplementation.UsuarioDao;
 import net.daw.factory.ConnectionFactory;
 import net.daw.helper.EncodingHelper;
 import net.daw.helper.ParameterCook;
@@ -26,7 +29,7 @@ import net.daw.helper.ParameterCook;
  *
  * @author Ramón
  */
-public class UsuarioService {
+public class UsuarioService{
 
     HttpServletRequest oRequest;
     String ob = null;
@@ -57,7 +60,7 @@ public class UsuarioService {
                 oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
                 oConnection = oConnectionPool.newConnection();
                 UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-                UsuarioBean oUsuarioBean = oUsuarioDao.get(id, 1);
+                UsuarioBean oUsuarioBean = (UsuarioBean) oUsuarioDao.get(id, 1);
                 // Gson oGson = new Gson();
                 Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
                 oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
@@ -132,7 +135,7 @@ public class UsuarioService {
                 oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
                 oConnection = oConnectionPool.newConnection();
                 UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-                oUsuarioBean = oUsuarioDao.create(oUsuarioBean);
+                oUsuarioBean = (UsuarioBean) oUsuarioDao.create(oUsuarioBean);
                 oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
             } catch (Exception ex) {
                 throw new Exception("ERROR: Service level: create method: " + ob + " object", ex);
@@ -184,7 +187,7 @@ public class UsuarioService {
                 oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
                 oConnection = oConnectionPool.newConnection();
                 UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-                ArrayList<UsuarioBean> alUsuarioBean = oUsuarioDao.getpage(iRpp, iPage, hmOrder, 1);
+                ArrayList<BeanInterface> alUsuarioBean = oUsuarioDao.getpage(iRpp, iPage, hmOrder, 1);
                 Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
                 oReplyBean = new ReplyBean(200, oGson.toJson(alUsuarioBean));
             } catch (Exception ex) {
@@ -219,7 +222,7 @@ public class UsuarioService {
                     oUsuarioBean.setLogin("ripego");
                     oUsuarioBean.setPass("hola");
                     oUsuarioBean.setId_tipoUsuario(2);
-                    oUsuarioBean = oUsuarioDao.create(oUsuarioBean);
+                    oUsuarioBean = (UsuarioBean) oUsuarioDao.create(oUsuarioBean);
                 }
                 oReplyBean = new ReplyBean(200, oGson.toJson(number));
             } catch (Exception ex) {

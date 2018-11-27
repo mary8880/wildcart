@@ -2,7 +2,7 @@ package net.daw.factory;
 
 import javax.servlet.http.HttpServletRequest;
 
-import net.daw.bean.ReplyBean;
+import net.daw.bean.beanImplementation.ReplyBean;
 import net.daw.service.FacturaService;
 import net.daw.service.LineaService;
 import net.daw.service.ProductoService;

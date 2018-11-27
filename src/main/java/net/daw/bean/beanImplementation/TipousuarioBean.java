@@ -1,23 +1,16 @@
-package net.daw.bean;
+package net.daw.bean.beanImplementation;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 
 import com.google.gson.annotations.Expose;
+import net.daw.bean.genericBeanImplementation.GenericBeanImplementation;
+import net.daw.bean.publicBeanInterface.BeanInterface;
 
-public class TipousuarioBean {
-	@Expose
-	private int id;
+public class TipousuarioBean extends GenericBeanImplementation implements BeanInterface{
+
 	@Expose
 	private String desc;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getDesc() {
 		return desc;

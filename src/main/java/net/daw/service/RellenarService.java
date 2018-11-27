@@ -6,7 +6,7 @@
 package net.daw.service;
 
 import java.util.ArrayList;
-import net.daw.bean.ProductoBean;
+import net.daw.bean.beanImplementation.ProductoBean;
 
 /**
  *

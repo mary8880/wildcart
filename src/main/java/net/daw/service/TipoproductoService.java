@@ -9,11 +9,11 @@ import com.google.gson.Gson;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
-import net.daw.bean.ReplyBean;
-import net.daw.bean.TipoproductoBean;
+import net.daw.bean.beanImplementation.ReplyBean;
+import net.daw.bean.beanImplementation.TipoproductoBean;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
-import net.daw.dao.TipoproductoDao;
+import net.daw.dao.specificDaoImplementation.TipoproductoDao;
 import net.daw.factory.ConnectionFactory;
 import net.daw.helper.EncodingHelper;
 

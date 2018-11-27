@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.daw.bean.ReplyBean;
+import net.daw.bean.beanImplementation.ReplyBean;
 import net.daw.constant.ConfigurationConstants;
 import net.daw.constant.ConfigurationConstants.EnvironmentConstans;
 import net.daw.factory.ServiceFactory;
