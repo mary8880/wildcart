@@ -14,10 +14,6 @@ import net.daw.dao.genericDaoImplementation.GenericDaoImplementation;
 import net.daw.dao.publicDaoInterface.DaoInterface;
 
 
-/**
- *
- * @author Ramón
- */
 public class UsuarioDao  extends GenericDaoImplementation implements DaoInterface {
 
  
